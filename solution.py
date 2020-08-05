@@ -24,4 +24,4 @@ for point in destinations:
     result = requests.request('GET', full_api_url).json()
     currently = result['currently']['summary']
     temperature = result['currently']['temperature']
-    print(f'The {point} is located at ({g.lat}, {g.lng})\nAt {point} right now it is {currently} with a temperature of {temperature}.')
+    print(f'The {point} is located at ({g.lat:.4f}, {g.lng:.4f})\nAt {point} right now it is {currently} with a temperature of {temperature:.2f} F.\n')
