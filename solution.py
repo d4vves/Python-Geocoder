@@ -1,4 +1,5 @@
 import geocoder
+import requests
 
 destinations = [
     'Space Needle',
@@ -15,6 +16,12 @@ destinations = [
     'Capilano Suspension Bridge'
 ]
 
+API_BASE_URL = "https://api.darksky.net/forecast/c73c375afbedccd447f98b4e275bb84c/"
+
 for point in destinations:
     g = geocoder.arcgis(point)
-    print(f'{point} is located at ({g.latlng})')
+    full_api_url = f'{API_BASE_URL}{g.lat},{g.lng}'
+    result = requests.request('GET', full_api_url).json()
+    currently = result['currently']['summary']
+    temperature = result['currently']['temperature']
+    print(f'The {point} is located at ({g.lat}, {g.lng})\nAt {point} right now it is {currently} with a temperature of {temperature}.')
